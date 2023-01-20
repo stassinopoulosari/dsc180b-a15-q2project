@@ -1,0 +1,8 @@
+twitter_config.json
+.DS_Store
+history.txt
+queue.txt
+state.txt
+names.csv
+twitter_graph.csv
+__pycache__
