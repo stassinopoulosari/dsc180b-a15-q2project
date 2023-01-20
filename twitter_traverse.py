@@ -20,13 +20,13 @@ _LIMIT_PER_ACCOUNT = 3000
 
 _RATE_LIMIT_PER_FIFTEEN_MINUTE = 15
 _FIFTEEN_MINUTES = 60 * 15
-_GRAPH_OUTPUT = "twitter_graph.csv"
+_GRAPH_OUTPUT = "results/graph.csv"
 _GRAPH_OUTPUT_FORMAT = "id_a,id_b"
-_NAME_OUTPUT = "twitter_name.csv"
+_NAME_OUTPUT = "results/names.csv"
 _NAME_OUTPUT_FORMAT = "id,name"
-_HISTORY_OUTPUT = "history.txt"
-_STATE_OUTPUT = "state.txt"
-_QUEUE_OUTPUT = "queue.txt"
+_HISTORY_OUTPUT = "results/history.txt"
+_STATE_OUTPUT = "results/state.txt"
+_QUEUE_OUTPUT = "results/queue.txt"
 _USER_AGENT = "dsc180b-wi23-a13"
 _TWITTER_CONFIG_PATH = "twitter_config.json"
 _BEARER_TOKEN = None
@@ -280,6 +280,8 @@ async def get_new_mutuals(user_id):
         'new_names': mutual_names
     }
 
+# File management
+
 def write_queue(queue):
     log('Writing queue', 4)
     queue_file_handle = open(_QUEUE_OUTPUT, 'w')
@@ -301,6 +303,8 @@ def write_history(history):
 def get_new_mutuals_sync(user_id):
     return asyncio.run(get_new_mutuals(user_id))
 
+# Central loop
+
 def run_queue():
     global history
     global state
@@ -316,7 +320,7 @@ def run_queue():
             new_names = mutuals['new_names']
             graph_file = open(_GRAPH_OUTPUT,'a')
             names_file = open(_NAME_OUTPUT, 'a')
-            if len(history) == 0:
+            if len(history) == 1:
                 log('Beginning graph and names files', 3)
                 graph_file.write(_GRAPH_OUTPUT_FORMAT + '\n')
                 names_file.write(_NAME_OUTPUT_FORMAT + '\n')
@@ -336,5 +340,7 @@ def run_queue():
         write_queue(queue)
         write_state(state)
         write_history(history)
+
+# Run
 
 run_queue()
