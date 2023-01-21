@@ -27,10 +27,9 @@ _NAME_OUTPUT_FORMAT = "id,name"
 _HISTORY_OUTPUT = "results/history.txt"
 _STATE_OUTPUT = "results/state.txt"
 _QUEUE_OUTPUT = "results/queue.txt"
-_USER_AGENT = "dsc180b-wi23-a13"
+_USER_AGENT = "dsc180b-wi23-a15"
 _TWITTER_CONFIG_PATH = "twitter_config.json"
-_BEARER_TOKEN = None
-
+_BEARER_TOKENS = []
 
 def _FOLLOWER_API_URL(user_id, pagination): return (
     "https://api.twitter.com/2/users/" +
@@ -96,12 +95,12 @@ try:
 except OSError:
     raise Exception(
         'No file found at ' + _TWITTER_CONFIG_PATH + '. Make sure ' +
-        _TWITTER_CONFIG_PATH + ' is a JSON file with a key `bearer_token`'
+        _TWITTER_CONFIG_PATH + ' is a JSON file with a key `bearer_tokens`'
     )
 with twitter_config_file_handle:
     twitter_config_json = twitter_config_file_handle.read()
     twitter_config = json.loads(twitter_config_json)
-    _BEARER_TOKEN = twitter_config['bearer_token']
+    _BEARER_TOKENS = twitter_config['bearer_tokens']
 twitter_config_file_handle.close()
 
 
@@ -125,7 +124,7 @@ try:
     history_file_handle = open(_HISTORY_OUTPUT, "r")
     log('Found history')
     for history_line in history_file_handle.readlines():
-        if history_line.trim() == '':
+        if history_line.strip() == '':
             continue
         history.add(int(history_line))
     history_file_handle.close()
@@ -140,7 +139,7 @@ try:
     queue_file_handle = open(_QUEUE_OUTPUT, "r")
     log('Found queue')
     for queue_line in queue_file_handle.readlines():
-        if queue_line.trim() == '':
+        if queue_line.strip() == '':
             continue
         queue.append(int(queue_line))
     queue_file_handle.close()
@@ -151,88 +150,64 @@ queue_set = set(queue)
 
 # API calls
 
-
-async def get_followers(user_id):
+async def api_get(url_builder, user_id, label):
+    label = label + ': '
     pagination = None
-    finished = False
     time_to_next_request = 0
     data = []
-    while not finished:
-        log('Time to next request: ' + str(time_to_next_request), 3)
+    while True:
+        log(label + 'Time to next request: ' + str(time_to_next_request), 3)
         await asyncio.sleep(time_to_next_request)
-        result = await make_request(
-            _FOLLOWER_API_URL(
-                user_id, pagination
-            ), _BEARER_TOKEN
-        )
-        if result['status'] == 'success':
-            log('Request successful', 3)
-            # increment_request()
-            results = result['text']
-            results_json = json.loads(results)
-            # Test for private user
-            if ('errors' in results_json.keys()):
-                log(str(results_json['errors']))
-                # User is private
-                # log('Private user', 2)
-                return {'status': 'private user', 'list': []}
-            follower_list = results_json['data']
-            data.extend(follower_list)
-            if len(data) >= _LIMIT_PER_ACCOUNT:
-                log(
-                    'Capping account at ' + str(_LIMIT_PER_ACCOUNT) +
-                    ' results. Moving to next.', 2
-                )
-                finished = True
-                continue
-            if (
-                'meta' in results_json.keys()
-                and 'next_token' in results_json['meta'].keys()  # ('')
-            ):
-                log('Pagination token found, moving to next', 3)
-                pagination = results_json['meta']['next_token']
-            else:
-                log('Pagination token not found, end', 3)
-                finished = True
-        elif result['status'] == 'rate_limit':
-            if 'x-rate-limit-reset' in result['headers'].keys():
-                time_to_next_request = int(
-                    result['headers']['x-rate-limit-reset']) - time.time()
-            else:
-                time_to_next_request = _FIFTEEN_MINUTES
-    return {'status': 'OK', 'list': data}
+        for token_number, _BEARER_TOKEN in enumerate(_BEARER_TOKENS):
+            result = await make_request(
+                url_builder(
+                    user_id, pagination
+                ), _BEARER_TOKEN
+            )
+            if result['status'] == 'success':
+                time_to_next_request = 0
+                log(label + 'Request successful', 3)
+                # increment_request()
+                results = result['text']
+                results_json = json.loads(results)
+                # Test for private user
+                if ('errors' in results_json.keys()):
+                    log(label + str(results_json['errors']))
+                    return {'status': 'private user', 'list': []}
+                follower_list = results_json['data']
+                data.extend(follower_list)
+                if len(data) >= _LIMIT_PER_ACCOUNT:
+                    log(label +
+                        'Capping account at ' + str(_LIMIT_PER_ACCOUNT) +
+                        ' results. Moving to next.', 2
+                    )
+                    return {'status': 'OK', 'list': data}
+                if (
+                    'meta' in results_json.keys()
+                    and 'next_token' in results_json['meta'].keys()  # ('')
+                ):
+                    log(label + 'Pagination token found, moving to next', 3)
+                    pagination = results_json['meta']['next_token']
+                else:
+                    log(label + 'Pagination token not found, end', 3)
+                    return {'status': 'OK', 'list': data}
+                break
+            elif result['status'] == 'rate_limit':
+                if 'x-rate-limit-reset' in result['headers'].keys():
+                    time_crawled = int(
+                        result['headers']['x-rate-limit-reset']) - time.time()
+                    log(label + 'Time polled for token ' + str(token_number) + ': ' + str(time_crawled), 4)
+                    if time_crawled < time_to_next_request or time_to_next_request == 0:
+                        time_to_next_request = time_crawled
+                else:
+                    time_to_next_request = _FIFTEEN_MINUTES
+
+async def get_followers(user_id):
+    return await api_get(_FOLLOWER_API_URL, user_id, 'FOLLOWERS/' + str(user_id))
 
 
 async def get_following(user_id):
-    pagination = None
-    finished = False
-    time_to_next_request = 0
-    data = []
-    while not finished:
-        log('Time to next request: ' + str(time_to_next_request), 3)
-        await asyncio.sleep(time_to_next_request)
-        result = await make_request(_FOLLOWING_API_URL(
-            user_id, pagination), _BEARER_TOKEN)
-        if result['status'] == 'success':
-            # increment_request()
-            results = result['text']
-            results_json = json.loads(results)
-            follower_list = results_json['data']
-            data.extend(follower_list)
-            if (
-                'meta' in results_json.keys()  # ()
-                and 'next_token' in results_json['meta'].keys()  # ('')
-            ):
-                pagination = results_json['meta']['next_token']
-            else:
-                finished = True
-        elif result['status'] == 'rate_limit':
-            if 'x-rate-limit-reset' in result['headers'].keys():
-                time_to_next_request = int(
-                    result['headers']['x-rate-limit-reset']) - time.time()
-            else:
-                time_to_next_request = _FIFTEEN_MINUTES
-    return {'status': 'OK', 'list': data}
+    return await api_get(_FOLLOWING_API_URL, user_id, 'FOLLOWING/' + str(user_id))
 
 # Result management
 
