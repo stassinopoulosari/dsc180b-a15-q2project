@@ -6,8 +6,7 @@ from collections import Counter
 
 from louvain import Louvain
 
-def topComms(graph):
-    communities = Louvain(graph).predict()
+def topComms(communities):
     counts = Counter(communities.values())
     sorted = counts.most_common()
     topLabels = [i[0] for i in sorted[:10]]
@@ -22,16 +21,17 @@ def nodeFilter(graph, label):
     return subgraph
 
 def topNodes(graph):
-    sorted = sorted(graph.degree, key=lambda x: x[1], reverse=True)
-    topTen = [i[0] for i in sorted[:10]]
+    sortedNodes = sorted(graph.degree, key=lambda x: x[1], reverse=True)
+    topTen = [i[0] for i in sortedNodes[:10]]
     handles = list(nx.get_node_attributes(graph.subgraph(topTen), 'name').values())
     return handles
 
 def summary(graph):
     communities = Louvain(graph).predict()
     nx.set_node_attributes(graph, communities, "detected")
-    topLabels = topComms(graph)
+    topLabels = topComms(communities)
     for label in topLabels:
         subgraph = nodeFilter(graph, label)
         handles = topNodes(subgraph)
         print("Top ten account handles for community {}: ".format(label) + ', '.join(handles))
+    return

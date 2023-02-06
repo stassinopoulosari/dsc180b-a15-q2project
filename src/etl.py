@@ -15,16 +15,16 @@ def get_data():
         os.makedirs(path)
     z = zipfile.ZipFile(io.BytesIO(response.content))
     z.extractall(path)
-    return
+    return path
 
 def read_data(path):
     nodepath = os.path.join(path,"graph.csv")
     namepath = os.path.join(path,"names.csv")
     nodes = pd.read_csv(nodepath)
-    names = pd.read_csv(namepath)
+    names = pd.read_csv(namepath).set_index('id').to_dict()['name']
     return nodes, names
 
 def make_graph(nodes, names):
     graph = nx.from_pandas_edgelist(nodes, source='id_a', target='id_b',create_using=nx.Graph())
-    nx.set_node_attributes(G, names, "name")
+    nx.set_node_attributes(graph, names, "name")
     return graph
