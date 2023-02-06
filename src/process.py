@@ -22,8 +22,8 @@ def nodeFilter(graph, label):
 
 def topNodes(graph):
     sortedNodes = sorted(graph.degree, key=lambda x: x[1], reverse=True)
-    topTen = [i[0] for i in sortedNodes[:10]]
-    handles = list(nx.get_node_attributes(graph.subgraph(topTen), 'name').values())
+    topTwenty = [i[0] for i in sortedNodes[:20]]
+    handles = list(nx.get_node_attributes(graph.subgraph(topTwenty), 'name').values())
     return handles
 
 def summary(graph):
@@ -33,5 +33,5 @@ def summary(graph):
     for label in topLabels:
         subgraph = nodeFilter(graph, label)
         handles = topNodes(subgraph)
-        print("Top ten account handles for community {}: ".format(label) + ', '.join(handles))
+        print("Top twenty account handles for community {}: ".format(label) + ', '.join(handles))
     return
