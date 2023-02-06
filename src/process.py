@@ -26,3 +26,12 @@ def topNodes(graph):
     topTen = [i[0] for i in sorted[:10]]
     handles = list(nx.get_node_attributes(graph.subgraph(topTen), 'name').values())
     return handles
+
+def summary(graph):
+    communities = Louvain(graph).predict()
+    nx.set_node_attributes(graph, communities, "detected")
+    topLabels = topComms(graph)
+    for label in topLabels:
+        subgraph = nodeFilter(graph, label)
+        handles = topNodes(subgraph)
+        print("Top ten account handles for community {}: ".format(label) + ', '.join(handles))
