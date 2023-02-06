@@ -18,6 +18,11 @@ def nodeFilter(graph, label):
     for node, data
     in graph.nodes(data=True)
     if data.get("detected") == label)
-    return graph.subgraph(nodes)
+    subgraph = graph.subgraph(nodes)
+    return subgraph
 
-
+def topNodes(graph):
+    sorted = sorted(graph.degree, key=lambda x: x[1], reverse=True)
+    topTen = [i[0] for i in sorted[:10]]
+    handles = list(nx.get_node_attributes(graph.subgraph(topTen), 'name').values())
+    return handles
