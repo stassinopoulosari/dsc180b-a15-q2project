@@ -2,4 +2,5 @@ twitter_config.json
 .DS_Store
 results/*.txt
 results/*.csv
+data/*.csv
 __pycache__

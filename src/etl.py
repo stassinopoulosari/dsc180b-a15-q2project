@@ -3,9 +3,12 @@ import requests, zipfile, io
 import networkx as nx
 import pandas as pd
 
+LATEST_RELEASE = '2023.02.11-11.51'
+
+
 def get_data():
    
-    url = "https://dl.dropboxusercontent.com/s/cactds8ci3hoxyz/graph_dessadarling_2022.01.30-14-30.zip?dl=0"
+    url = "https://github.com/stassinopoulosari/dsc180b-wi23-a15-2-data/releases/download/" + LATEST_RELEASE + "/release.zip"
     response = requests.get(url)
 
     directory = "data/"
