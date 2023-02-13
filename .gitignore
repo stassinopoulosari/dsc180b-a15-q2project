@@ -1,6 +1,7 @@
 twitter_config.json
 .DS_Store
-results/*.txt
-results/*.csv
+src/twitter_traverse_results/*.txt
+src/twitter_traverse_results/*.csv
 data/*.csv
 __pycache__
+Dockerfile
