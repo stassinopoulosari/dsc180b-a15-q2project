@@ -8,7 +8,6 @@ from collections import deque
 from collections import defaultdict
 import asyncio
 import sys
-import signal
 
 # Flags
 
@@ -19,15 +18,15 @@ _LIMIT_PER_ACCOUNT = 3000
 # Constants
 
 _FIFTEEN_MINUTES = 60 * 15
-_GRAPH_OUTPUT = "results/graph.csv"
+_GRAPH_OUTPUT = "twitter_traverse_results/graph.csv"
 _GRAPH_OUTPUT_FORMAT = "id_a,id_b"
-_NAME_OUTPUT = "results/names.csv"
+_NAME_OUTPUT = "twitter_traverse_results/names.csv"
 _NAME_OUTPUT_FORMAT = "id,name"
-_HISTORY_OUTPUT = "results/history.txt"
-_STATE_OUTPUT = "results/state.txt"
-_QUEUE_OUTPUT = "results/queue.txt"
+_HISTORY_OUTPUT = "twitter_traverse_results/history.txt"
+_STATE_OUTPUT = "twitter_traverse_results/state.txt"
+_QUEUE_OUTPUT = "twitter_traverse_results/queue.txt"
 _USER_AGENT = "dsc180b-wi23-a15"
-_TWITTER_CONFIG_PATH = "twitter_config.json"
+_TWITTER_CONFIG_PATH = "../twitter_config.json"
 _BEARER_TOKENS = []
 
 
@@ -345,7 +344,7 @@ def get_new_mutuals_sync(user_id):
 # Central loop
 
 
-def run_queue():
+def twitter_traverse ():
     """Main function"""
     global history
     global state
@@ -392,4 +391,4 @@ def run_queue():
 # Run
 
 
-run_queue()
+# run_queue()
