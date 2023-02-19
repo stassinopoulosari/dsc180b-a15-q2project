@@ -5,13 +5,13 @@ sys.path.insert(0, 'src')
 
 from etl import get_data, read_data, make_graph
 from process import summary
-from twitter_traverse import twitter_traverse
 
 
 def main(targets):
 
     if 'twitter_traverse' in targets:
         # Do not do this unless you want the code to run indefinitely
+        from twitter_traverse import twitter_traverse
         twitter_traverse()
         
     if 'data' in targets:
