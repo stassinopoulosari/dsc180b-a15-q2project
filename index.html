@@ -106,12 +106,111 @@
                     <h2>DETECTING COMMUNITIES</h2>
                     <p>
                         The Louvain Method we used to detech graph communities uses <b>modularity</b> to determine if a
-                        set of nodes is a community. <b>Modularity</b> is the number of edges between a group of ndes
+                        set of nodes is a community. <b>Modularity</b> is the comparison between the expected number of
+                        edges between a set of nodes and the actual number of edges detected. A group more internally
+                        connected than the graph as a whole has a high <b>modularity</b>.
+                    </p>
+                    <div class="example-image">
+                        <img src="assets/modularity-viz.svg" class="example-image">
+                        <span>Figure 1: Each community has a higher modularity than the graph as a whole.</span>
+                    </div>
+                    <p class="no-indent">
+                        <b>
+                            The communities we chose to analyze manually were the ones with the most nodes. Within each
+                            community, we chose the ten most connected members within the group.
+                        </b>
                     </p>
                 </div>
             </div>
         </div>
     </div>
+    <div class="brick-row">
+        <div class="brick-2">
+            <span id="results"></span>
+            <h2>RESULTS</h2>
+            <div class="paragraph-2column">
+                <div>
+                    <h3>COMMUNITY 1</h3>
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class='num-td'>#</th>
+                                <th>Username</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="community-1-tbody">
+                        </tbody>
+                    </table>
+                    <h3>COMMUNITY 2</h3>
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class='num-td'>#</th>
+                                <th>Username</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="community-2-tbody">
+                        </tbody>
+                    </table>
+                    <h3>COMMUNITY 3</h3>
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class='num-td'>#</th>
+                                <th>Username</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="community-3-tbody">
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3>COMMUNITY 4</h3>
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class='num-td'>#</th>
+                                <th>Username</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="community-4-tbody">
+                        </tbody>
+                    </table>
+                    <h3>COMMUNITY 5</h3>
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class='num-td'>#</th>
+                                <th>Username</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="community-5-tbody">
+                        </tbody>
+                    </table>
+                    <h3>COMMUNITY 6</h3>
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class='num-td'>#</th>
+                                <th>Username</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="community-6-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="brick-1 hdsi-bg">
+        </div>
+    </div>
 </body>
+<script src="load-tables.js"></script>
 
 </html>

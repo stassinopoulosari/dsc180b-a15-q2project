@@ -131,7 +131,7 @@ div.paragraph-2column>div:nth-child(1)>h2 {
     left:-75%;
     z-index: -1;
     transform: rotate(15deg);
-    background: url(hdsi-capstone.svg) center center repeat;
+    background: url(assets/hdsi-capstone.svg) center center repeat;
     background-size: 300px;
 }
 span.gutter {
@@ -171,6 +171,49 @@ li .flex-3, li .flex-1 {
 h2 {
     font-size: 1.5em;
 }
+.example-image {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1em !important;
+}
+.example-image span {
+    display: block;
+    font-weight: bold;
+}
+table {
+    margin:0.5em;
+    width:calc(100% - 1em);
+}
+thead {
+    background-color: #114B5F;
+    color: #E4FDE1;
+}
+thead th {
+    padding: 0.5em;
+}
+td {
+    padding:0.5em;
+    border-right: 1px solid #114B5F;
+}
+tr {
+    line-height:1.1em;
+    height:3.2em;
+}
+td:last-child {
+    border-right: none;
+}
+p.no-indent {
+    text-indent: 0;
+}
+.num-td {
+    text-align: right;
+    font-weight: bold;
+}
+td.num-td {
+    color: #114B5F;
+}
 @media only screen and (min-width:1100px) {
     #title-container {
         padding: 2em;
@@ -204,4 +247,8 @@ h2 {
     .hdsi-bg {
         display:block;
     }
+    .example-image img {
+        max-width: 50%;   
+    }
+    
 }
