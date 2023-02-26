@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="text/javascript" src="https://livejs.com/live.js"></script>
+    <title>Community Detection on Twitter</title>
+</head>
+
+<body>
+    <div id="title-container">
+        <h1 id="title">COMMUNITY DETECTION ON TWITTER</h1>
+    </div>
+    <div class="brick-row" id="first-row">
+        <div class="brick-block" id="names-container">
+            <ul id="names">
+                <li class="light-txt">
+                    <span class="flex-3">
+                        kudsi,
+                    </span>
+                    <span class="flex-1">
+                        m.
+                    </span>
+                    <span class="gutter" />
+                </li>
+                <li class="pink-txt">
+                    <span class="flex-3">
+                        stassinopoulos,
+                    </span>
+                    <span class="flex-1">
+                        a.
+                    </span>
+                    <span class="gutter" />
+                </li>
+                <li class="salmon-txt">
+                    <span class="flex-3">
+                        wang,
+                    </span>
+                    <span class="flex-1">
+                        f.
+                    </span>
+                    <span class="gutter" />
+                </li>
+                <li class="light-txt">
+                    <span class="flex-3">
+                        UC SAN DIEGO
+                    </span>
+                    <span class="gutter" />
+
+                </li>
+            </ul>
+            <div class="brick-1 hdsi-bg"></div>
+        </div>
+        <div class="brick-2">
+            <h2>SUMMARY</h2>
+            <p id="hero-summary">
+                We scraped a large amount of community data on Twitter, starting from a <a
+                    href="https://twitter.com/DessaDarling" target="_blank">seed account</a>,
+                and used it to see what communities we could find. <a href="#results">(Skip&nbsp;to&nbsp;results)</a>
+            </p>
+            <h2>INTRODUCTION</h2>
+            <div class="paragraph-2column">
+                <p>
+                    The size and utility of networks has increased exponentially in the last few decades. Social media
+                    as well as other internet applications have made analysis of the connections between nodes
+                    (including people) a highly productive exercise when trying to predict commonality between them,
+                    including political affiliation, geographic location, and interest in a celebrity, to name a few
+                    examples.
+                </p>
+                <p>
+                    Much like the size of the graphs in general has increased exponentially, so does the cost of finding
+                    these communities. As a graph grows, its edges grow exponentially and it is difficult to use many
+                    algorithms that would work at small scale to analyze large scale data. We used an algorithm known as
+                    the Louvain Method to predict communities based on common edges between nodes in our dataset. After
+                    we predicted the communities with the largest size, we told a story about what real community the
+                    algorithm had detected based on manual analysis of community members.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="brick-row">
+        <div class="brick-1 hdsi-bg">
+        </div>
+        <div class="brick-2">
+            <div class="paragraph-2column">
+                <div>
+                    <h2>GATHERING DATA</h2>
+                    <p>
+                        We gathered data by scraping Twitter starting at our seed account, @DessaDarling. Starting with
+                        Dessa's account, we scraped the first three thousand followers for each user, as well as the
+                        first three thousand accounts following them. From this data, we built a list of users on both
+                        lists for a given users (<b>mutual followers</b>). These <b>mutuals</b> would be the
+                        relationship we would use to construct our graph.
+                    </p>
+                    <p>
+                        For each mutual, we would check to see if we had already scraped their account and, if we had
+                        not, we would add them to a queue of users to scrape. We woul then scrape each of the users in
+                        the queue in order, leading to a depth-first-search approach to traversing the graph.<br>
+                        <b>All in all, we ended up with about 140MB of data (~55MB compressed) to analyze. From there,
+                            we
+                            proceeded to our community detection.</b>
+                    </p>
+                </div>
+                <div>
+                    <h2>DETECTING COMMUNITIES</h2>
+                    <p>
+                        The Louvain Method we used to detech graph communities uses <b>modularity</b> to determine if a
+                        set of nodes is a community. <b>Modularity</b> is the number of edges between a group of ndes
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
