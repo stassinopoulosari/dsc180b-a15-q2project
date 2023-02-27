@@ -135,5 +135,4 @@ Political Campaigner in UK that advoactes against gambling as lost her husband t
     if (!$table) return;
     $table.innerHTML = list.map((tuple, i) => `<tr><td class='num-td'>${i + 1}</td><td>${tuple[0]}</td><td>${tuple[1]}</td>`).join('');
   });
-  console.log(data);
 })();
