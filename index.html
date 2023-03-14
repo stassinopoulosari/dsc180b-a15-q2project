@@ -59,7 +59,9 @@
             <p id="hero-summary">
                 We scraped a large amount of community data on Twitter, starting from a <a
                     href="https://twitter.com/DessaDarling" target="_blank">seed account</a>,
-                and used it to see what communities we could find. <a href="#results">(Skip&nbsp;to&nbsp;results)</a>
+                and used it to see what communities we could find. <br />
+                <a href="#results">Skip&nbsp;to&nbsp;results</a> or
+                <a href="report.pdf" target="_blank">View our report</a>
             </p>
             <h2>INTRODUCTION</h2>
             <div class="paragraph-2column">
@@ -161,6 +163,90 @@
         </div>
         <div class="brick-1 hdsi-bg">
         </div>
+    </div>
+    <div class="brick-row">
+        <div class="brick-1 hdsi-bg">
+        </div>
+        <div class="brick-2">
+            <div class="paragraph-2column">
+                <div>
+                    <h2>CONCLUSION</h2>
+                    <p>
+                        After utilizing the louvain algorithm to identify communities on the twitter dataset we have
+                        identified 10 interesting communities. Characterizing these communities and analyzing their
+                        commonalities we found two distinct features that connected the accounts in each community. The
+                        first feature being the geographical location of the twitter accounts, for example community 10
+                        consisted of accounts solely based in Essex county, in the United Kingdom. The second feature
+                        was the interest and professions of the twitter accounts, for example community 2 consisted of
+                        accounts of individuals in medical professions and PHD medical students. Throughout our analysis
+                        we also identified communities that were connected based upon the merging of both geographical
+                        location and interest. One distinct example can be found within community 5 which consisted of
+                        accounts that were all based in the UK and all had a focus on scriptwriting, ranging from tv
+                        shows to theatrical productions.
+                    </p>
+                    <p>
+                        Overall these findings suggest that undetected communities exist within social media networks
+                        and can be uncovered with high accuracy by the Louvain algorithm. It is important to carefully
+                        test the performance of the louvain algorithm individually on every social media platform to
+                        determine whether these communities can be extracted. More specifically, it is important to
+                        utilize sampling and random testing to manually assess extracted communities that may contain
+                        accounts that are not correlated. An example of this can be seen in community 7 where 4/10 user
+                        accounts had unidentifiable similarities to the community of producers/rappers, showcasing a
+                        possible case of low accuracy community detection. As previously stated, further research is
+                        required to determine the Louvain algorithm’s applicability in the field of community detection
+                        within a variety of social media networks that structure their accounts and networks
+                        differently.
+                    </p>
+                </div>
+                <div>
+                    <h2>IMPLICATIONS</h2>
+                    <p>
+                        Looking to future research, it's essential to take our findings and processes and implement them
+                        on various social networks to identify possible applicabilities.
+                        Furthermore, it is recommended to make use of API access on social media networks productively,
+                        as we learned throughout our research. Twitter’s API key gave us access to only scrape 1 account
+                        or 1000 results per request (whichever is less), equating to 15 requests per 15 minutes per api
+                        key. With 3 api keys, a minimum of 15 accounts per 15 minutes or up to 45 accounts per 15
+                        minutes depending on a user’s followers/following. This limitation challenged our data gathering
+                        capabilities with a database that houses millions of users. Through analysis we discovered that
+                        by sampling only the top 3000 followers/following of each user, we were able to still extract
+                        meaningful results with our mode. Therefore, analyzing a social network’s API capabilities and
+                        identifying creative solutions to collect meaningful data.
+                        Utilizing our findings it would be interesting to research the application of community
+                        detection on advertisement recommendations. Specifically, through our identification of
+                        community interests and locations using less sensitive data, social networks can allow
+                        advertisers to target accounts accurately without the release of highly sensitive account data
+                        that is currently utilized. This benefits the consumer/account owner by keeping their personal
+                        data safe, while also giving advertisers similar advertisement turnover accuracy. This is
+                        becoming particularly important in a world where more of our private data is shared on a daily
+                        basis.
+                    </p>
+                    <p>
+                        Furthermore, it would be interesting to apply the louvain algorithm’s community detection
+                        capabilities in group and account recommendations on social media platforms. Currently, on many
+                        platforms such as Instagram or facebook, account recommendations are based upon the people you
+                        follow and their connections. With the uncovering of hidden communities of common interests,
+                        platforms may be able to implement account recommendations based upon common interests among
+                        individuals.
+                    </p>
+                    <p>
+                        We have only surfaced the tip of the iceberg to identify communities within social media
+                        platforms, it is now in the hands of the social media network giants and scientific community to
+                        both further research and implement learnings in this space.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p>
+            Marwan Kudsi (<a href='mailto:mkudsi@ucsd.edu'>mkudsi@ucsd.edu</a>) | Freddy Wang (<a
+                href='mailto:f5wang@ucsd.edu'>f5wang@ucsd.edu</a>) | Ari
+            Stassinopoulos (<a href='mailto:aristotle@ucsd.edu'>aristotle@ucsd.edu</a>); Mentor: Arya Mazumdar; <a
+                href="poster.pdf" target="_blank">View our poster</a>
+        </p>
+        <br />
     </div>
 </body>
 <script src="load-viz.js"></script>
