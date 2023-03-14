@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link rel="stylesheet" href="./style.css" />
-    <!-- <script type="text/javascript" src="https://livejs.com/live.js"></script> -->
+    <script type="text/javascript" src="https://livejs.com/live.js"></script>
     <title>Community Detection on Twitter</title>
 </head>
 
@@ -111,7 +113,7 @@
                         connected than the graph as a whole has a high <b>modularity</b>.
                     </p>
                     <div class="example-image">
-                        <img src="assets/modularity-viz.svg" class="example-image">
+                        <img src="assets/modularity-viz.svg">
                         <span>Figure 1: Each community has a higher modularity than the graph as a whole.</span>
                     </div>
                     <p class="no-indent">
@@ -129,94 +131,31 @@
             <span id="results"></span>
             <h2>RESULTS</h2>
             <div class="paragraph-2column">
-                <div>
-                    <h3>COMMUNITY 1</h3>
-                    <table cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class='num-td'>#</th>
-                                <th>Username</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="community-1-tbody">
-                        </tbody>
-                    </table>
-                    <h3>COMMUNITY 2</h3>
-                    <table cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class='num-td'>#</th>
-                                <th>Username</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="community-2-tbody">
-                        </tbody>
-                    </table>
-                    <h3>COMMUNITY 3</h3>
-                    <table cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class='num-td'>#</th>
-                                <th>Username</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="community-3-tbody">
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-                    <h3>COMMUNITY 4</h3>
-                    <table cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class='num-td'>#</th>
-                                <th>Username</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="community-4-tbody">
-                        </tbody>
-                    </table>
-                    <h3>COMMUNITY 5</h3>
-                    <table cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class='num-td'>#</th>
-                                <th>Username</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="community-5-tbody">
-                        </tbody>
-                    </table>
-                    <h3>COMMUNITY 6</h3>
-                    <table cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class='num-td'>#</th>
-                                <th>Username</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="community-6-tbody">
-                        </tbody>
-                    </table>
-                </div>
+                <p>Below is a visualization to view the top ten most-connected members of the top ten largest groups
+                    that we
+                    found in the Twitter dataset. Use the forward and backward buttons to switch communities and tap on
+                    a circle to view information about an individual user. Click the center circle to cycle through
+                    members of the community in order.</p>
             </div>
-        </div>
-        <div class="brick-1 hdsi-bg">
-        </div>
-    </div>
-    <div class="brick-row">
-        <div class="brick-2">
-            <span id="results"></span>
-            <h2>RESULTS</h2>
-            <div class="paragraph-2column">
-                <div>
-
+            <div id="results-container">
+                <div id="results-controls">
+                    <div id="results-selected-person">
+                        <p><b>Touch an outer circle to select a community member</b><br>Information about the person you
+                            select will show here.</p>
+                    </div>
+                    <div id="results-selected-community">
+                        <p>Community number <span id="community-id">1</span></p>
+                        <p>
+                            <b id="results-selected-community-name"></b><br />
+                            <span id="results-selected-community-analysis"></span>
+                        </p>
+                    </div>
+                    <div id="results-buttons">
+                        <button id="prev-community" disabled>&#9664;</button>
+                        <button id="next-community" disabled>&#9654;</button>
+                    </div>
+                </div>
+                <div id="results-viz">
                 </div>
             </div>
         </div>
@@ -224,6 +163,7 @@
         </div>
     </div>
 </body>
-<script src="load-tables.js"></script>
+<script src="load-viz.js"></script>
+<!-- <script src="load-tables.js"></script> -->
 
 </html>
