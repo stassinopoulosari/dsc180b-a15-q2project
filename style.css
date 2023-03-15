@@ -22,6 +22,7 @@ p {
 }
 svg {
     margin: 0 -2.5em 0 -2em;
+    width:100%;
 }
 .viz-circle circle {
     stroke: none;
